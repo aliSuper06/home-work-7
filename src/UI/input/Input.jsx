@@ -24,12 +24,13 @@ const FormBox = styled.div`
   align-items: flex-start;
   font-weight: 600;
   input {
-    width: 340px;
+    width: 250px;
     height: 30px;
     border: none;
     border-radius: 10px;
     outline: none;
     margin-top: 8px;
+    margin-bottom: 20px;
     padding: 5px 10px 5px 18px;
   }
 `;

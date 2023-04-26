@@ -37,7 +37,7 @@ const ExpensesForm = ({ onClick, addExpenseHandler }) => {
   }
   return (
     <form onSubmit={submitHandler}>
-      <FormContainer className="inputDiv">
+      <FormContainer>
         <div>
           <Input
             marginBottom="20px"

@@ -13,13 +13,16 @@ const NewExpense = ({ addExpenseHandler }) => {
     <div
       style={{
         backgroundColor: " #AD9BE9",
-        width: "50%",
+        width: "100%",
         padding: "30px",
         borderRadius: "20px",
       }}
     >
       {state ? (
-        <ExpensesForm onClick={openAndCloseExpensesFormHandler} addExpenseHandler={addExpenseHandler} />
+        <ExpensesForm
+          onClick={openAndCloseExpensesFormHandler}
+          addExpenseHandler={addExpenseHandler}
+        />
       ) : (
         <Button onClick={openAndCloseExpensesFormHandler}>
           Добавить новый расход

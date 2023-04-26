@@ -5,6 +5,7 @@ import styled from "styled-components";
 const Button = (props) => {
   return (
     <ButtonStyled
+      disabled={props.disabled}
       className="button"
       onClick={props.onClick}
       style={{ marginRight: props.marginRight }}
@@ -28,5 +29,8 @@ const ButtonStyled = styled.button`
 
   &:hover {
     background-color: #72159e;
+  }
+  :disabled {
+    background-color: #73159eb7;
   }
 `;

@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
 import Expenses from "./components/expenses/Expenses";
 import NewExpense from "./components/newExpense/NewExpense";
+import { useEffect } from "react";
+import { Header } from "./components/Header/Header";
+import { Login } from "./Login/Login";
+import { User } from "./User/User";
 
 const productData = [
   {
@@ -27,7 +31,20 @@ const productData = [
 ];
 
 function App() {
-  const [newProduct, setNewProduct] = useState(productData);
+  const [newProduct, setNewProduct] = useState(
+    JSON.parse(localStorage.getItem("key")) || productData
+  );
+  const [isLogin, setIsLogin] = useState(false);
+  const someRef = useRef("ali");
+
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    const login = localStorage.getItem("Auth");
+    setIsLogin(login);
+    const user = localStorage.getItem("user");
+    setUser(user);
+  }, []);
 
   function addExpenseHandler(data) {
     setNewProduct([...newProduct, data]);
@@ -38,14 +55,58 @@ function App() {
     setNewProduct(newData);
   }
 
+  const loginHandler = () => {
+    setIsLogin(true);
+    localStorage.setItem("Auth", !isLogin);
+  };
+
+  const logoutHandler = () => {
+    setIsLogin(false);
+    localStorage.removeItem("Auth");
+  };
+
+  useEffect(() => {
+    localStorage.setItem("key", JSON.stringify(newProduct));
+  }, [newProduct]);
+
+  function showUser() {
+    setUser(true);
+    localStorage.setItem("user", !user);
+  }
+
+  function showExpenses() {
+    setUser(false);
+    localStorage.removeItem('user')
+  }
+
   return (
     <div className="App">
-      <NewExpense addExpenseHandler={addExpenseHandler} />
-      <Expenses
-        data={newProduct}
-        setNewProduct={setNewProduct}
-        onDelete={deleteExpense}
+      <Header
+        isLogin={isLogin}
+        LogoutHandler={logoutHandler}
+        showExpenses={showExpenses}
+        showUser={showUser}
       />
+      <>
+        {isLogin ? (
+          user ? (
+            <User />
+          ) : (
+            <div>
+              <NewExpense addExpenseHandler={addExpenseHandler} ref={someRef} />
+              <Expenses
+                data={newProduct}
+                setNewProduct={setNewProduct}
+                onDelete={deleteExpense}
+              />
+            </div>
+          )
+        ) : (
+          <>
+            <Login onLogin={loginHandler} />
+          </>
+        )}
+      </>
     </div>
   );
 }

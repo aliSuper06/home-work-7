@@ -35,7 +35,7 @@ const Expenses = (props) => {
   return (
     <div
       style={{
-        width: "52%",
+        width: "100%",
         padding: "30px 20px",
         marginTop: "20px",
         backgroundColor: "#1F1F1F",
